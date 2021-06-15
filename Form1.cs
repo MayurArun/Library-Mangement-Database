@@ -8,7 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-namespace project_1
+
+namespace New_project_LIB
 {
     public partial class Form1 : Form
     {
@@ -17,58 +18,68 @@ namespace project_1
             InitializeComponent();
         }
 
-
-        SqlConnection con = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"|DataDirectory|\\Database.mdf\";Integrated Security=True");
+        SqlConnection con = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Arun\\source\repos\\New_project_LIB\\New_project_LIB\\Database.mdf;Integrated Security=True");
         SqlCommand cmd;
         SqlDataReader dr;
 
-
         private String getUserName()
         {
-            // fetch the data from datbase
+            //Fetch the data
+
             con.Open();
-            string syntax = "SELECT Value FROM systemTable where Property=UserName";
-            cmd = new SqlCommand(syntax, con);
+            String Syntax = "SELECT value FROM systemTable where property=UserName";
+            cmd = new SqlCommand(Syntax, con);
             dr = cmd.ExecuteReader();
             dr.Read();
             String temp = dr[0].ToString();
             con.Close();
             return temp;
+
 
         }
 
         private String getPassword()
         {
-            // fetch the data from datbase
+            //Fetch the data
+
             con.Open();
-            string syntax = "SELECT Value FROM systemTable where Property=Password";
-            cmd = new SqlCommand(syntax, con);
+            String Syntax = "SELECT value FROM systemTable where property=Password";
+            cmd = new SqlCommand(Syntax, con);
             dr = cmd.ExecuteReader();
             dr.Read();
-            String temp = dr[0].ToString();
+            String temp= dr[0].ToString();
             con.Close();
             return temp;
+
         }
+
 
 
         private void button1_Click(object sender, EventArgs e)
         {
+           
 
             String Uname = getUserName(), Upass = getPassword(), name, pass;
             name = textBox1.Text;
             pass = textBox2.Text;
-             if(name.Equals(Uname) && pass.Equals(Upass))
+             
+
+            if(name.Equals(Uname) && pass.Equals(Upass))
             {
                 //LOGIN
                 label4.Hide();
-                MessageBox.Show("Log in sucess!!");
+                AppBody obj = new AppBody();
+                this.Hide();
+                obj.Show();
 
+           
             }
-             else
+            else
             {
                 //DONT LOGIN
                 label4.Show();
             }
         }
+
     }
 }
